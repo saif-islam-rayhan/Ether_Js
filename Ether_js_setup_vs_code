@@ -1,0 +1,9 @@
+step 1:
+npm init -y
+step 2:
+npm install ethers
+step3:
+file create .js
+step4:
+Run code
+node index.js
