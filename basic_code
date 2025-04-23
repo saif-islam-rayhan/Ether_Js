@@ -1,0 +1,36 @@
+const { ethers } = require("ethers");
+
+async function readBlockchainData() {
+  const provider = ethers.getDefaultProvider("mainnet");
+
+  //Get latest block
+  const block = await provider.getBlock("latest");
+  console.log("Latest block:", block.number);
+
+  //Get block by number
+  const specificBlock = await provider.getBlock(1700000);
+  console.log("Block 17M timestamp:", new Date(specificBlock.timestamp * 1000));
+
+  //Get account balance
+  const address = "0xd8da6bf26964af9d7eed9e03e53415d37aa96045";
+  const balance = await provider.getBalance(address);
+  console.log("Balance in wei: ", balance.toString());
+  console.log("Balance in Eth: ", ethers.formatEther(balance));
+
+  //get transaction count
+  const txCount = await provider.getTransactionCount(address);
+  console.log("Transaction count: ", txCount);
+
+  //get gas price
+  const feeData = await provider.getFeeData();
+  console.log(
+    "Gas price (gwei): ",
+    ethers.formatUnits(feeData.gasPrice, "gwei")
+  );
+  console.log(
+    "Max fee per gas: ",
+    ethers.formatUnits(feeData.maxFeePerGas, "gwei")
+  );
+}
+
+readBlockchainData();
